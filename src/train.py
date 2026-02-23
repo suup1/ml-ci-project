@@ -33,33 +33,7 @@ def load_data(path=DATA_PATH):
     return df
 
 def preprocess_columns(df):
-    """
-    Adjust this function if your column names differ.
-    """
-    # Try common names automatically
-    possible_text_cols = ["text", "sentence", "news", "headline"]
-    possible_label_cols = ["label", "sentiment", "category"]
-
-    text_col = None
-    label_col = None
-
-    for col in possible_text_cols:
-        if col in df.columns:
-            text_col = col
-            break
-
-    for col in possible_label_cols:
-        if col in df.columns:
-            label_col = col
-            break
-
-    if text_col is None or label_col is None:
-        raise ValueError("Could not automatically detect text and label columns.")
-
-    print(f"Using text column: {text_col}")
-    print(f"Using label column: {label_col}")
-
-    return df[text_col], df[label_col]
+    return df["text"], df["label"]
 
 def build_pipeline():
     return Pipeline([
