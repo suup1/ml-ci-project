@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/suup1/ml-ci-project.git'
-            }
-        }
-
         stage('Verify Files') {
             steps {
                 bat 'dir'
