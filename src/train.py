@@ -17,10 +17,15 @@ DATA_PATH = "data/financial_news.csv"
 def load_data(path=DATA_PATH):
     if not os.path.exists(path):
         raise FileNotFoundError(f"Dataset not found at {path}")
-    
-    df = pd.read_csv(path)
-    print("Columns in dataset:", df.columns)
 
+    try:
+        df = pd.read_csv(path, encoding="utf-8")
+        print("Loaded using UTF-8 encoding")
+    except UnicodeDecodeError:
+        print("UTF-8 failed. Trying latin1 encoding...")
+        df = pd.read_csv(path, encoding="latin1")
+
+    print("Columns in dataset:", df.columns)
     return df
 
 def preprocess_columns(df):
