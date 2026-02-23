@@ -19,13 +19,17 @@ def load_data(path=DATA_PATH):
         raise FileNotFoundError(f"Dataset not found at {path}")
 
     try:
-        df = pd.read_csv(path, encoding="utf-8")
-        print("Loaded using UTF-8 encoding")
-    except UnicodeDecodeError:
-        print("UTF-8 failed. Trying latin1 encoding...")
-        df = pd.read_csv(path, encoding="latin1")
+        df = pd.read_csv(
+            path,
+            encoding="latin1",
+            header=None,
+            names=["label", "text"]
+        )
+    except Exception as e:
+        raise RuntimeError(f"Failed to load dataset: {e}")
 
-    print("Columns in dataset:", df.columns)
+    print("Dataset loaded successfully.")
+    print(df.head())
     return df
 
 def preprocess_columns(df):
